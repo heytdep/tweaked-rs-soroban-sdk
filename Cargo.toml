@@ -1,0 +1,85 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "soroban-sdk",
+    "soroban-auth",
+    "soroban-sdk-macros",
+    "soroban-spec",
+    "soroban-ledger-snapshot",
+    "soroban-token-spec",
+    "tests/empty",
+    "tests/empty2",
+    "tests/add_u64",
+    "tests/add_i128",
+    "tests/add_u128",
+    "tests/import_contract",
+    "tests/invoke_contract",
+    "tests/udt",
+    "tests/contract_data",
+    "tests/events",
+    "tests/logging",
+    "tests/errors",
+]
+
+[workspace.package]
+version = "0.3.2"
+
+[workspace.dependencies]
+soroban-sdk = { version = "0.3.2", path = "soroban-sdk" }
+soroban-sdk-macros = { version = "0.3.2", path = "soroban-sdk-macros" }
+soroban-auth = { version = "0.3.2", path = "soroban-auth" }
+soroban-spec = { version = "0.3.2", path = "soroban-spec" }
+soroban-ledger-snapshot = { version = "0.3.2", path = "soroban-ledger-snapshot" }
+soroban-token-spec = { version = "0.3.2", path = "soroban-token-spec" }
+
+[workspace.dependencies.soroban-env-common]
+version = "0.0.11"
+git = "https://github.com/stellar/rs-soroban-env"
+rev = "258b86d"
+
+[workspace.dependencies.soroban-env-guest]
+version = "0.0.11"
+git = "https://github.com/stellar/rs-soroban-env"
+rev = "258b86d"
+
+[workspace.dependencies.soroban-env-host]
+path = "../rs-soroban-env/soroban-env-host"
+version = "0.0.11"
+git = "https://github.com/heytdep/tweaked-rs-soroban-env"
+
+[workspace.dependencies.stellar-strkey]
+version = "0.0.6"
+git = "https://github.com/stellar/rs-stellar-strkey"
+rev = "5e582a8b"
+
+[workspace.dependencies.stellar-xdr]
+version = "0.0.11"
+git = "https://github.com/stellar/rs-stellar-xdr"
+rev = "dbf2aba"
+default-features = false
+
+# [patch."https://github.com/stellar/rs-soroban-env"]
+# soroban-env-common = { path = "../rs-soroban-env/soroban-env-common" }
+# soroban-env-guest = { path = "../rs-soroban-env/soroban-env-guest" }
+# soroban-env-host = { path = "../rs-soroban-env/soroban-env-host/" }
+# [patch."https://github.com/stellar/rs-stellar-xdr"]
+# stellar-xdr = { path = "../rs-stellar-xdr/" }
+
+[profile.dev]
+overflow-checks = true
+panic = "abort"
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true
+
+[profile.release-with-logs]
+inherits = "release"
+debug-assertions = true
