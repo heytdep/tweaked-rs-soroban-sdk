@@ -44,7 +44,6 @@ git = "https://github.com/stellar/rs-soroban-env"
 rev = "258b86d"
 
 [workspace.dependencies.soroban-env-host]
-path = "../rs-soroban-env/soroban-env-host"
 version = "0.0.11"
 git = "https://github.com/heytdep/tweaked-rs-soroban-env"
 
